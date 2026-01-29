@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.css";
 
 function App() {
   const [walletAddress, setWalletAddress] = useState(null);
@@ -27,39 +28,45 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "2rem", maxWidth: "420px" }}>
-      <h1>SimpleToken dApp</h1>
+    <div className="app">
+  <div className="card">
+    <h1>SimpleToken</h1>
+    <p className="subtitle">
+      Local demo – simulated token mint (no real transactions)
+    </p>
 
-      {!walletAddress ? (
-        <button onClick={connectWallet}>Connect Wallet</button>
-      ) : (
-        <>
-          <p>Connected wallet:</p>
-          <code>{walletAddress}</code>
+    {!walletAddress ? (
+      <button className="primary" onClick={connectWallet}>
+        Connect wallet
+      </button>
+    ) : (
+      <>
+        <p className="address">{walletAddress}</p>
 
-          <div style={{ marginTop: "1rem" }}>
-            <input
-              type="number"
-              placeholder="Amount to mint"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
+        <input
+          type="number"
+          placeholder="Amount to mint"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
 
-            <button
-              onClick={mintTokens}
-              disabled={isLoading}
-              style={{ marginLeft: "0.5rem" }}
-            >
-              {isLoading ? "Minting..." : "Mint"}
-            </button>
-          </div>
+        <button
+          className="primary"
+          onClick={mintTokens}
+          disabled={isLoading || !amount}
+        >
+          {isLoading ? "Minting…" : "Mint"}
+        </button>
 
-          <p style={{ marginTop: "1rem" }}>
-            Current balance: <strong>{balance}</strong>
-          </p>
-        </>
-      )}
-    </div>
+        <p className="balance">
+          Current balance: <strong>{balance}</strong>
+        </p>
+      </>
+    )}
+  </div>
+</div>
+
+
   );
 }
 
